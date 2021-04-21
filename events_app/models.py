@@ -10,6 +10,7 @@ from sqlalchemy.orm import backref
 # - events_attending: relationship to "Event" table with a secondary table
 
 class Guest(db.Model):
+    #SQL Error??
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(80), nullable=False)
