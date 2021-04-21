@@ -17,9 +17,9 @@ main = Blueprint('main', __name__)
 def index():
     """Show upcoming events to users!"""
     # TODO: Get all events and send to the template
-    events =  db.session.query(Event).all()
-    # print(events)
-    return render_template('index.html',events=events)
+    event_book =  db.session.query(Event).all()
+    print(event)
+    return render_template('index.html',event_book=event_book)
 
 
 @main.route('/event/<event_id>', methods=['GET'])
@@ -27,6 +27,7 @@ def event_detail(event_id):
     """Show a single event."""
     # TODO: Get the event with the given id and send to the template
     event = db.session.query(Event).get(event_id)
+    print(event)
     return render_template('event_detail.html',event=event)
 
 
@@ -69,9 +70,9 @@ def create():
     if request.method == 'POST':
         new_event_title = request.form.get('title')
         new_event_description = request.form.get('description')
-        date = request.form.get('date')
         time = request.form.get('time')
-
+        date = request.form.get('date')
+        date_and_time = None
         try:
             date_and_time = datetime.strptime(
                 f'{date} {time}',
@@ -85,6 +86,7 @@ def create():
             title=new_event_title,
             description=new_event_description,
             date_and_time=date_and_time
+
         )
         db.session.add(new_event)
         db.session.commit()
@@ -99,4 +101,4 @@ def create():
 def guest_detail(guest_id):
     # TODO: Get the guest with the given id and send to the template
     guest = db.session.query(Guest).get(guest_id)
-    return render_template('guest_detail.html', guests)
+    return render_template('guest_detail.html', guest=guest)
