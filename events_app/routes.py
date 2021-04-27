@@ -18,7 +18,6 @@ def index():
     """Show upcoming events to users!"""
     # TODO: Get all events and send to the template
     event_book =  db.session.query(Event).all()
-    print(event)
     return render_template('index.html',event_book=event_book)
 
 
