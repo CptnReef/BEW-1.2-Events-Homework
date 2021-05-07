@@ -17,8 +17,9 @@ main = Blueprint('main', __name__)
 def index():
     """Show upcoming events to users!"""
     # TODO: Get all events and send to the template
-    event_book =  db.session.query(Event).all()
-    return render_template('index.html',event_book=event_book)
+    events =  db.session.query(Event).all()
+    print(events)
+    return render_template('index.html',events=events)
 
 
 @main.route('/event/<event_id>', methods=['GET'])
@@ -26,7 +27,6 @@ def event_detail(event_id):
     """Show a single event."""
     # TODO: Get the event with the given id and send to the template
     event = db.session.query(Event).get(event_id)
-    print(event)
     return render_template('event_detail.html',event=event)
 
 
@@ -85,7 +85,6 @@ def create():
             title=new_event_title,
             description=new_event_description,
             date_and_time=date_and_time
-
         )
         db.session.add(new_event)
         db.session.commit()
